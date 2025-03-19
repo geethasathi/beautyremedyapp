@@ -4,8 +4,8 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import './AddRemedy.css';
 
-const AddRemedy = ({ onRemedyAdded, closeModal }) => { // ✅ Accept onRemedyAdded & closeModal as props
-  const { user } = useContext(AuthContext); // ✅ Get user context
+const AddRemedy = ({ onRemedyAdded, closeModal }) => { 
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     title: '',
     category: '',
@@ -27,17 +27,17 @@ const AddRemedy = ({ onRemedyAdded, closeModal }) => { // ✅ Accept onRemedyAdd
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
-      alert("❌ You must be logged in to add a remedy.");
+      alert("You must be logged in to add a remedy.");
       return;
     }
   
     const remedyData = new FormData();
     remedyData.append("title", formData.title);
     remedyData.append("category", formData.category);
-    remedyData.append("ingredients", JSON.stringify(formData.ingredients.split(",").map(ing => ing.trim()))); // ✅ Convert to array
+    remedyData.append("ingredients", JSON.stringify(formData.ingredients.split(",").map(ing => ing.trim()))); 
     remedyData.append("preparation", formData.preparation);
     remedyData.append("application", formData.application);
-    remedyData.append("createdBy", user.id); // ✅ Ensure createdBy is sent
+    remedyData.append("createdBy", user.id); 
     if (formData.file) {
       remedyData.append("image", formData.file);
     }
@@ -51,19 +51,19 @@ const AddRemedy = ({ onRemedyAdded, closeModal }) => { // ✅ Accept onRemedyAdd
       });
   
       if (response.status === 201) {
-        alert("✅ Remedy added successfully!");
+        alert(" Remedy added successfully!");
         if (onRemedyAdded) onRemedyAdded();
         if (closeModal) closeModal();
       }
     } catch (error) {
       console.error("Error adding remedy:", error.response?.data || error.message);
-      alert("❌ Failed to add remedy. Please check console for details.");
+      alert(" Failed to add remedy. Please check console for details.");
     }
   };
   
   
   return (
-    <div className="add-remedy-modal"> {/* ✅ Modal-style container */}
+    <div className="add-remedy-modal"> {}
       <div className="add-remedy-content">
         <h2>Add a New Remedy</h2>
         <form className="form" onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ const AddRemedy = ({ onRemedyAdded, closeModal }) => { // ✅ Accept onRemedyAdd
 
           <div className="button-group">
             <button type="submit" className="btn">Add Remedy</button>
-            <button type="button" className="btn btn-secondary" onClick={closeModal}>Cancel</button> {/* ✅ Close modal button */}
+            <button type="button" className="btn btn-secondary" onClick={closeModal}>Cancel</button> {}
           </div>
         </form>
       </div>
